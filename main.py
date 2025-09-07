@@ -25,14 +25,18 @@ def main():
 
     today=date.today().strftime("%Y/%m/%d")
     for ticker in tickers:
-        s3_key = f"{ticker}/{today}.parquet"
+        s3_key = f"{ticker}/{today}.json.gz"
 
 
         stock_data = yf.Ticker(ticker)
 
         stock_data_today= stock_data.history(period="1d", interval="5m")
+        #stock_data_today.index = stock_data_today.index.floor("S")
+        stock_data_today= stock_data_today.reset_index()
+        stock_data_today["Datetime"]=stock_data_today["Datetime"].dt.floor("min")
+        print(stock_data_today)
         buffer = BytesIO()
-        stock_data_today.to_parquet(buffer, compression="snappy")
+        stock_data_today.to_json(buffer, orient="records", lines=True, date_format="iso", compression="gzip")
         buffer.seek(0)
 
         s3.upload_fileobj(buffer, bucket_name, s3_key)
@@ -41,9 +45,3 @@ def main():
 
 if __name__== '__main__':
     main()
-
-
-
-
-
-
