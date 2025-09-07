@@ -25,14 +25,14 @@ def main():
 
     today=date.today().strftime("%Y/%m/%d")
     for ticker in tickers:
-        s3_key = f"{ticker}/{today}.parquet.gzip"
+        s3_key = f"{ticker}/{today}.parquet"
 
 
         stock_data = yf.Ticker(ticker)
 
         stock_data_today= stock_data.history(period="1d", interval="5m")
         buffer = BytesIO()
-        stock_data_today.to_parquet(buffer, compression="gzip")
+        stock_data_today.to_parquet(buffer, compression="snappy")
         buffer.seek(0)
 
         s3.upload_fileobj(buffer, bucket_name, s3_key)
