@@ -33,7 +33,6 @@ def main():
             stock_data = yf.Ticker(ticker)
 
             stock_data_today= stock_data.history(period="1d", interval="5m")
-            #stock_data_today.index = stock_data_today.index.floor("S")
             stock_data_today= stock_data_today.reset_index()
             stock_data_today["Datetime"]=stock_data_today["Datetime"].dt.floor("min")
             buffer = BytesIO()
