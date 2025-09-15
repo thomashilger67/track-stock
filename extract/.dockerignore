@@ -1,3 +1,6 @@
 .env
 /.venv
 .gitignore
+/airflow
+/glue
+build.sh

@@ -1,10 +1,12 @@
 import yfinance as yf
 import requests 
 import pyarrow
+import boto3
+import os 
+import argparse 
 from datetime import date
 from io import BytesIO
-import boto3
-import argparse 
+from pydotenv import load_dotenv
 
 parser = argparse.ArgumentParser(
                     prog='track-stock-scrapper',
@@ -13,12 +15,13 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument("tickers",type=str, nargs='+', help="the tickers to download")
 
+load_dotenv()
 
 
 def main(): 
     
     try:
-        bucket_name = "track-stock"
+        bucket_name = os.getenv["S3_BUCKET_NAME"]
         args = parser.parse_args()
         tickers = [ticker.upper() for ticker in args.tickers]
 
