@@ -12,5 +12,5 @@ The pipeline uses Apache Airflow for ochestration and AWS as cloud-provider. To 
 - deposit glue/`Transform from s3` on AWS in a S3 bucket.
 - modify  script_location in airflow/`track-stock-dag.py` with your correct S3 path.
 - drop airflow/`track-stock-dag.py` in your airflow/dags folder 
-- configure airflow to add an aws account named `aws_defualt` and the corresponding rights
+- configure airflow to add an aws account named `aws_default` and the corresponding rights
 - ready to launch DAG
