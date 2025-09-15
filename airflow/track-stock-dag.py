@@ -1,5 +1,5 @@
-from datetime import datetime, timedelta
-from airflow import DAG
+from datetime import timedelta, datetime
+from airflow.sdk import DAG, Param, get_current_context
 from airflow.providers.amazon.aws.operators.ecs import EcsRunTaskOperator
 from airflow.providers.amazon.aws.operators.glue import GlueJobOperator
 
