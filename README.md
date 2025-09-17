@@ -1,13 +1,35 @@
-# track-stock
+# Track-Stock
 This small project implements a cloud-ready and production-ready ETL pipeline for financial data using AWS and Apache Airflow.
+
+This project was initiate as a hands-on opportunity to improve my skills in cloud plateforms and modern data engineering technologies. 
 
 ## 🌟 Highlights
 
 - **Orchestration:** Automated with Apache Airflow
 - **Cloud-native:** Runs on AWS (ECS, Glue, S3)
 - **Extensible:** Easily add new tickers or transformations
-- **Modern stack:** Dockerized for portability, Spark for parallelism and scale, use of Apache Iceberg for a modern data lakehouse
+- **Modern stack:** Dockerized for portability, Spark for distributed data processing, use of Apache Iceberg for a modern data lakehouse
 
+## 🛠️ Technologies Used
+
+- **Python & Pandas:** Data extraction and manipulation
+- **Docker:** Containerization for reproducible environments
+- **AWS ECS & Glue:** Serverless, scalable compute for ETL
+- **Apache Iceberg:** Modern data lakehouse table format
+- **Apache Airflow:** Workflow orchestration and scheduling
+- **Amazon Athena:** SQL queries on ther data lake
+
+
+## 📊 Architecture
+
+```mermaid
+flowchart LR
+    A[Airflow DAG] --> B[ECS Extraction Container]
+    B --> C[S3 Raw Data]
+    C --> D[Glue Transformation Job]
+    D --> E[S3 Iceberg Table]
+    E --> F[Athena SQL Queries]
+```
 
 ## ℹ️ Overview
 The pipeline works in two main steps:
@@ -21,7 +43,6 @@ Airflow orchestrates the entire process via [`airflow/track-stock-dag.py`](airfl
 
 
 ## 🚀 Quick-start 
-
 ### Prerequisties 
 
 - An AWS account with permissions for ECS, Glue, and S3
